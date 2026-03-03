@@ -1,0 +1,196 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Roboto+Mono&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 224 71.4% 4.1%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 224 71.4% 4.1%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71.4% 4.1%;
+
+    --primary: 350 65% 48%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 220 14.3% 95.9%;
+    --secondary-foreground: 220.9 39.3% 11%;
+
+    --muted: 220 14.3% 95.9%;
+    --muted-foreground: 220 8.9% 46.1%;
+
+    --accent: 220 14.3% 95.9%;
+    --accent-foreground: 220.9 39.3% 11%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 20% 98%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 350 65% 48%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 224 71.4% 4.1%;
+    --foreground: 210 20% 98%;
+
+    --card: 224 71.4% 4.1%;
+    --card-foreground: 210 20% 98%;
+
+    --popover: 224 71.4% 4.1%;
+    --popover-foreground: 210 20% 98%;
+
+    --primary: 350 65% 48%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 215 27.9% 16.9%;
+    --secondary-foreground: 210 20% 98%;
+
+    --muted: 215 27.9% 16.9%;
+    --muted-foreground: 217.9 10.6% 64.9%;
+
+    --accent: 215 27.9% 16.9%;
+    --accent-foreground: 210 20% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 20% 98%;
+
+    --border: 215 27.9% 16.9%;
+    --input: 215 27.9% 16.9%;
+    --ring: 350 65% 48%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif tracking-tight;
+  }
+
+  /* Chess board pattern for decoration */
+  .chess-board-pattern {
+    background-image: 
+      linear-gradient(45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%), 
+      linear-gradient(-45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%), 
+      linear-gradient(45deg, transparent 75%, rgba(0, 0, 0, 0.05) 75%), 
+      linear-gradient(-45deg, transparent 75%, rgba(0, 0, 0, 0.05) 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+  }
+}
+
+/* Page transitions */
+.page-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.page-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-exit-active {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 300ms, transform 300ms;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-muted;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary/50 rounded-full;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary/80;
+}
+
+/* Glass morphism effect */
+.glass {
+  @apply bg-white/10 backdrop-blur-lg border border-white/20 shadow-lg;
+}
+
+.dark .glass {
+  @apply bg-black/10 backdrop-blur-lg border border-white/10 shadow-lg;
+}
+
+/* Button styles */
+.btn-chess {
+  @apply px-6 py-3 rounded-md transition-all duration-300 font-medium tracking-wide inline-flex items-center justify-center gap-2 relative overflow-hidden shadow-md;
+}
+
+.btn-chess::before {
+  content: '';
+  @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+}
+
+.btn-chess:hover::before {
+  @apply opacity-100;
+}
+
+.btn-chess-primary {
+  @apply bg-chess-accent text-white hover:bg-chess-accent/90;
+}
+
+.btn-chess-secondary {
+  @apply bg-chess-black text-white hover:bg-chess-black/90;
+}
+
+.btn-chess-outline {
+  @apply border border-chess-black text-chess-black bg-transparent hover:bg-chess-black/5;
+}
+
+/* Card styles */
+.card-chess {
+  @apply bg-white rounded-xl p-6 shadow-md transition-all duration-300 hover:shadow-lg border border-chess-light/50;
+}
+
+.dark .card-chess {
+  @apply bg-chess-dark border-chess-black/50;
+}
+
+/* Header with chess pattern underline */
+.chess-header {
+  @apply relative inline-block;
+}
+
+.chess-header::after {
+  content: '';
+  @apply absolute left-0 -bottom-2 h-1 w-full bg-chess-accent;
+  background-image: linear-gradient(90deg, transparent 0%, transparent 50%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0.5) 100%);
+  background-size: 8px 8px;
+}
